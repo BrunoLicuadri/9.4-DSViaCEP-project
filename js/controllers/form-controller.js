@@ -69,9 +69,27 @@ async function handleInputCepChange(event){
     }
 }
 
-async function handleBtnSaveClick(event){
+function handleBtnSaveClick(event){
     event.preventDefault();
-    listController.addCard(state.address);
+    const errors = addressService.getError(state.address);
+    const keys = Object.keys(errors);
+    /*
+    if(keys.length > 0){
+        for (let i=0; i<keys.length; i++){
+            setFormError(keys[i], errors[keys[i]]);
+        }
+    }
+    */
+   // above is the most common way to gog thu an array. Below its a difference an awesome way to do so:
+   if(keys.length > 0){
+    keys.forEach(keys => {
+        setFormError(keys, errors[keys])
+    });
+   }
+    else{
+        listController.addCard(state.address);
+        clearForm();
+    } 
 }
 
 function handleBtnClearClick(event){
@@ -80,7 +98,7 @@ function handleBtnClearClick(event){
 }
 
 function clearForm(){
-    state.inputcep.value = "";
+    state.inputCep.value = "";
     state.inputStreet.value = "";
     state.inputNumber.value = "";
     state.inputCity.value = "";
@@ -88,7 +106,9 @@ function clearForm(){
     setFormError("cep", "");
     setFormError("number", "");
 
-    state.inputcep.focus();
+    state.address = new Address();
+
+    state.inputCep.focus();
 }
 
 function setFormError(key, value){
