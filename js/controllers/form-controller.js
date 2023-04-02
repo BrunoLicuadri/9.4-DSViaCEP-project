@@ -1,5 +1,6 @@
 import Address from '../models/address.js';
 import * as addressService from '../services/address-service.js';
+import * as listController from '../controllers/list-controller.js';
 
 function State(){
     
@@ -38,7 +39,12 @@ export function init(){
     state.btnClear.addEventListener('click', handleBtnClearClick);
     state.btnSave.addEventListener('click', handleBtnSaveClick);
     state.inputCep.addEventListener('change', handleInputCepChange);
+    state.inputNumber.addEventListener('keyup', handleInputNumberKeyup);
 
+}
+
+function handleInputNumberKeyup(event){
+    state.address.number = event.target.value;
 }
 
 async function handleInputCepChange(event){
@@ -65,7 +71,7 @@ async function handleInputCepChange(event){
 
 async function handleBtnSaveClick(event){
     event.preventDefault();
-    console.log();
+    listController.addCard(state.address);
 }
 
 function handleBtnClearClick(event){
