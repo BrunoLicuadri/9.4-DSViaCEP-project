@@ -1,0 +1,23 @@
+.btn-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn{
+    height: 50px;
+    width: 250px;
+    background-color: #ff8400;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 700px;
+    font-size: 14px;
+}
+
+.btn-left{
+    margin-right: 5px;
+}
+
+.btn-right{
+    margin-left: 5px;
+}
